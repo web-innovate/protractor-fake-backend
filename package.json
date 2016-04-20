@@ -1,0 +1,20 @@
+{
+  "name": "protractor-fake-backend",
+  "version": "1.0.0",
+  "description": "Mock the http calls of your application when testing it with protractor",
+  "main": "index.js",
+  "author": "Andrei Scripcaru",
+  "license": "MIT",
+  "dependencies": {
+    "minimatch": "3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-innovate/protractor-fake-backend"
+  },
+  "keywords": [
+    "fake",
+    "backend",
+    "protractor"
+  ]
+}

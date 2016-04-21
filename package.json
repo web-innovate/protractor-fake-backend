@@ -6,7 +6,7 @@
   "author": "Andrei Scripcaru",
   "license": "MIT",
   "dependencies": {
-    "minimatch": "3.0.0"
+    "globby": "4.0.0"
   },
   "repository": {
     "type": "git",

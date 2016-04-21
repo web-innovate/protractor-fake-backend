@@ -1,7 +1,7 @@
 'use strict';
 
-function moduleTemplate() {
-  var mocks = '<place_mocks_here>';
+function moduleTemplate(data) {
+  var mocks = data || [];
   var mockModule = angular.module('fakeBackend', []);
 
   mockModule.requests = [];
@@ -151,64 +151,26 @@ function moduleTemplate() {
         }));
       }
 
-      fakeBackend.get = function (url, request) {
-        request = request || {};
-        request.url = url;
-        request.method = 'GET';
+      ['GET', 'DELETE', 'HEAD', 'JSONP'].forEach(function (method) {
+        fakeBackend[method.toLowerCase()] = function (url, request) {
+          request = request || {};
+          request.url = url;
+          request.method = method;
 
-        return fakeBackend(request);
-      };
+          return fakeBackend(request);
+        };
+      });
 
-      fakeBackend.delete = function (url, request) {
-        request = request || {};
-        request.url = url;
-        request.method = 'DELETE';
+      ['POST', 'PUT', 'PATCH'].forEach(function (method) {
+        fakeBackend[method.toLowerCase()] = function (url, data, request) {
+          request = request || {};
+          request.url = url;
+          request.data = data;
+          request.method = method;
 
-        return fakeBackend(request);
-      };
-
-      fakeBackend.head = function (url, request) {
-        request = request || {};
-        request.url = url;
-        request.method = 'HEAD';
-
-        return fakeBackend(request);
-      };
-
-      fakeBackend.jsonp = function (url, request) {
-        request = request || {};
-        request.url = url;
-        request.method = 'JSONP';
-
-        return fakeBackend(request);
-      };
-
-      fakeBackend.post = function (url, data, request) {
-        request = request || {};
-        request.url = url;
-        request.data = data;
-        request.method = 'POST';
-
-        return fakeBackend(request);
-      };
-
-      fakeBackend.put = function (url, data, request) {
-        request = request || {};
-        request.url = url;
-        request.data = data;
-        request.method = 'PUT';
-
-        return fakeBackend(request);
-      };
-
-      fakeBackend.patch = function (url, data, request) {
-        request = request || {};
-        request.url = url;
-        request.data = data;
-        request.method = 'PATCH';
-
-        return fakeBackend(request);
-      };
+          return fakeBackend(request);
+        };
+      });
 
       fakeBackend.defaults = $http.defaults;
 
@@ -239,14 +201,4 @@ function moduleTemplate() {
   return mockModule;
 }
 
-module.exports = function (expectations) {
-  var templateFunction = moduleTemplate.toString();
-  var template = templateFunction
-    .substring(templateFunction.indexOf('{') + 1, templateFunction.lastIndexOf('}'))
-    .trim();
-
-  var newFunction = template
-    .replace(/'<place_mocks_here>'/, expectations);
-
-  return new Function(newFunction);
-};
+module.exports = moduleTemplate;

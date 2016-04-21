@@ -1,5 +1,6 @@
 'use strict';
 
+var globby = require('globby');
 var path = require('path');
 var fakeBackend = require('./fake-backend');
 var defaultConfig = require('./default-config');
@@ -23,6 +24,10 @@ function getMocks(mockFiles, excludeDefaultMocks) {
   var config = getConfig();
   var files = mockFiles || [];
   var excludeDefault = excludeDefaultMocks || false;
+  var globOptions = {
+    nodir: true,
+    cwd: path.join(process.cwd(), config.mocksDir)
+  };
 
   if (typeof files === 'string' || files instanceof String) {
     files = [files];
@@ -36,7 +41,7 @@ function getMocks(mockFiles, excludeDefaultMocks) {
     }
   }
 
-  return (files || [])
+  return (globby.sync(files, globOptions))
     .map(function (mock) {
       return require(path.join(process.cwd(), config.mocksDir, mock));
     })
@@ -48,7 +53,7 @@ function getMocks(mockFiles, excludeDefaultMocks) {
 module.exports = function (mockFiles, excludeDefaultMocks) {
   var mocks = getMocks(mockFiles, excludeDefaultMocks);
 
-  browser.addMockModule('fakeBackend', fakeBackend(JSON.stringify(mocks)));
+  browser.addMockModule('fakeBackend', fakeBackend, mocks);
 };
 
 module.exports.teardown = function () {

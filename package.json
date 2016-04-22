@@ -1,7 +1,7 @@
 {
   "name": "protractor-fake-backend",
   "version": "1.0.0",
-  "description": "Mock the http calls of your application when testing it with protractor",
+  "description": "Mock the http calls of your angular application when testing it with protractor",
   "main": "index.js",
   "author": "Andrei Scripcaru",
   "license": "MIT",

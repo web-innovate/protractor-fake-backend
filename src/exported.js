@@ -62,16 +62,16 @@ module.exports.teardown = function () {
 
 module.exports.getRequests = function () {
   return browser.executeAsyncScript(function () {
-    var fakeBackend = angular.module("fakeBackend");
+    var fakeBackend = angular.module('fakeBackend');
     var callback = arguments[arguments.length - 1];
 
-    callback(fakeBackend.getRequests);
+    callback(fakeBackend.getRequests());
   });
 };
 
 module.exports.clearRequests = function () {
   return browser.executeAsyncScript(function () {
-    var fakeBackend = angular.module("fakeBackend");
+    var fakeBackend = angular.module('fakeBackend');
     var callback = arguments[arguments.length - 1];
 
     fakeBackend.clearRequests();
@@ -81,7 +81,7 @@ module.exports.clearRequests = function () {
 
 module.exports.addMock = function (mock) {
   return browser.executeAsyncScript(function () {
-    var fakeBackend = angular.module("fakeBackend");
+    var fakeBackend = angular.module('fakeBackend');
     var callback = arguments[arguments.length - 1];
 
     fakeBackend.addMock(arguments[0]);
@@ -91,7 +91,7 @@ module.exports.addMock = function (mock) {
 
 module.exports.removeMocks = function () {
   return browser.executeAsyncScript(function () {
-    var fakeBackend = angular.module("fakeBackend");
+    var fakeBackend = angular.module('fakeBackend');
     var callback = arguments[arguments.length - 1];
 
     fakeBackend.removeMocks();

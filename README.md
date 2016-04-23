@@ -1,6 +1,6 @@
 # protractor-fake-backend
 
-A NodeJS module to be used alongside [protractor](https://github.com/angular/protractor)
+A NodeJS module to be used alongside [Protractor](https://github.com/angular/protractor)
 
 ## Installation
 
@@ -16,30 +16,25 @@ In your protractor configuration file you need to do the following:
       onPrepare: function() {
         // other stuff
         require('protractor-fake-backend').config = {
-          mocksDir: 'relative/path/to/mocks/directory', // default 'mocks'
-          defaultMocks: ['some/mock', 'another'] // default []
+          mocksDir: 'path/to/mocks/directory', // default 'mocks'
+          defaultMocks: ['some/mock', 'another/**'] // default []
         };
       }
     }
 ```
 
+ - `mocksDir` should receive the relative path of the directory that contains the mock files.
+ - `defaultMocks` should receive an array of mock file names that are included every time. you can use [patterns](https://github.com/sindresorhus/globby#globbing-patterns)
+
 ## Mock files
 
-Mock files must be written in javascript and must export and array or an object
+Mock files must be written in javascript and must export a mock object or an array of mock objects
 
 ```javascript
     module.exports = {
       request: {
-        method: 'GET',
-        status: 200,
-        params: {
-          first: 1,
-          second: 'bla'
-        },
-        queryString: {
-          first: 2,
-          second: 'woo'
-        }
+        path: '/the/path',
+        method: 'GET'
       },
       response: {
         data: 'bla'
@@ -55,4 +50,36 @@ or
         // second mock
       }
     ]
+```
+
+### Reference mock object
+
+```javascript
+module.exports = {
+  request: {
+    path: '/must/start/with/a/slash',
+    method: 'POST',
+    body: 'request body',
+    headers: {
+      first: 1,
+      second: 'bla'
+    },
+    queryString: {
+      first: '2',
+      second: 'woo'
+    },
+    params: {
+      first: 1,
+      second: 'woo'
+    }
+  },
+  response: {
+    status: 200,
+    data: 'bla',
+    headers: {
+      first: 1,
+      second: 'two'
+    }
+  }
+}
 ```

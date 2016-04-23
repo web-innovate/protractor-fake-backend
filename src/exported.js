@@ -57,7 +57,7 @@ module.exports = function (mockFiles, excludeDefaultMocks) {
 };
 
 module.exports.teardown = function () {
-  browser.clearMockModules();
+  browser.removeMockModule('fakeBackend');
 };
 
 module.exports.getRequests = function () {

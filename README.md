@@ -20,14 +20,14 @@ In your protractor configuration file you need to do the following:
         // other stuff
         require('protractor-fake-backend').config = {
           mocksDir: 'path/to/mocks/directory', // default 'mocks'
-          defaultMocks: ['some/mock', 'another/**'] // default []
+          defaultMocks: ['some/mock', 'another/**', {request:{}, response:{}}] // default []
         };
       }
     }
 ```
 
  - `mocksDir` should receive the relative path of the directory that contains the mock files.
- - `defaultMocks` should receive an array of mock file names that are included every time. you can use [patterns](https://github.com/sindresorhus/globby#globbing-patterns)
+ - `defaultMocks` must be an array. The array can contain [mock objects](#reference-mock) and file names (strings). These are included every time (unless `excludeDefaultMocks = true`). You can use [patterns](https://github.com/sindresorhus/globby#globbing-patterns) for file names
 
 ## Mock files
 
@@ -58,7 +58,7 @@ or
 ### Reference mock object
 
 ```javascript
-module.exports = {
+{
   request: {
     path: '/must/start/with/a/slash',
     method: 'POST',
@@ -86,3 +86,65 @@ module.exports = {
   }
 }
 ```
+
+## Usage
+
+```javascript
+var fakeBackend = require('protractor-fake-backend');
+var page = require('your/page/object');
+
+describe('your test', function() {
+  beforeAll(function() {
+    fakeBackend(['first/file', 'second/file']);
+    page.get();
+  });
+
+  it('check the last request', function() {
+    var expectation = {
+          path: '/the/path',
+          method: 'POST',
+          body: 'request body'
+        };
+
+    fakeBackend.clearRequests();
+
+    page.someButton.click();
+
+    fakeBackend.getLastRequest().then(function(request) {
+      expect(request).toEqual(expectation);
+    });
+  });
+});
+```
+
+## API
+
+#### `fakeBackend(mocks, excludeDefaultMocks)`
+Adds the mock module on protractor. Needs to be called in each spec.
+
+`mocks` if not passed, only default mocks will be included.
+
+Can be:
+
+- A string representing a file name or a pattern. E.g. `'some/file'` or `'file/**'`
+- An array that can contain a combination of file names(or patterns) and [mock objects](#reference-mock-object)
+
+`excludeDefaultMocks` by default is `false`. As the name says, if you pass `true` then the default mocks declared in [config](#configuration) won't be added
+
+#### `fakeBackend.teardown()`
+Removes the mock module from protractor
+
+#### `fakeBackend.getRequests()`
+Returns an array containing all intercepted requests
+
+#### `fakeBackend.getLastRequest()`
+Returns the last intercepted request
+
+#### `fakeBackend.clearRequests()`
+Deletes all the intercepted requests
+
+#### `fakeBackend.addMock(mock)`
+Adds one or more mocks. The `mock` param can be an [Object](#reference-mock-object) or an Array of [Objects](#reference-mock-object)
+
+#### `fakeBackend.removeMocks()`
+Removes all the mocks from the module

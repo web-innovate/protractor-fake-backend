@@ -20,24 +20,39 @@ function getConfig() {
   return config;
 }
 
+function isType(value, type) {
+  return value.constructor.toString().indexOf(type) > -1;
+}
+
 function getMocks(mockFiles, excludeDefaultMocks) {
   var config = getConfig();
-  var files = mockFiles || [];
+  var allMocks = [];
+  var files = [];
   var excludeDefault = excludeDefaultMocks || false;
   var globOptions = {
-    nodir: true,
-    cwd: path.join(process.cwd(), config.mocksDir)
-  };
+        nodir: true,
+        cwd: path.join(process.cwd(), config.mocksDir)
+      };
 
-  if (typeof files === 'string' || files instanceof String) {
-    files = [files];
+  function separateMockTypes(array) {
+    array.forEach(function (item) {
+      if (isType(item, 'Object')) {
+        allMocks.push(item);
+      } else if (isType(item, 'String')) {
+        files.push(item);
+      }
+    });
+  }
+
+  if (Array.isArray(mockFiles)) {
+    separateMockTypes(mockFiles);
+  } else if (isType(mockFiles, 'String')) {
+    files.push(mockFiles);
   }
 
   if (!excludeDefault) {
     if (Array.isArray(config.defaultMocks)) {
-      files = files.concat(config.defaultMocks);
-    } else if (typeof config.defaultMocks === 'string' || config.defaultMocks instanceof String) {
-      files.push(config.defaultMocks);
+      separateMockTypes(config.defaultMocks);
     }
   }
 
@@ -46,8 +61,8 @@ function getMocks(mockFiles, excludeDefaultMocks) {
       return require(path.join(process.cwd(), config.mocksDir, mock));
     })
     .reduce(function (collection, data) {
-      return collection[Array.isArray(data) ? 'concat' : 'push'](data);
-    }, []);
+      return collection.concat(Array.isArray(data) ? data : [data]);
+    }, allMocks);
 }
 
 module.exports = function (mockFiles, excludeDefaultMocks) {
@@ -66,6 +81,15 @@ module.exports.getRequests = function () {
     var callback = arguments[arguments.length - 1];
 
     callback(fakeBackend.getRequests());
+  });
+};
+
+module.exports.getLastRequest = function () {
+  return browser.executeAsyncScript(function () {
+    var fakeBackend = angular.module('fakeBackend');
+    var callback = arguments[arguments.length - 1];
+
+    callback(fakeBackend.getLastRequest());
   });
 };
 

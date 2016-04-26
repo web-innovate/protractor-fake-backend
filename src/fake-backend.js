@@ -108,14 +108,14 @@ function moduleTemplate(data) {
       function fakeBackend(request) {
         var promise;
 
+        mockModule.requests.push(request);
+
         return wrapPromise($q.when(request).then(function (req) {
           var matched = match(req)[0];
 
           if (matched) {
             var deferred = $q.defer();
             var delay = matched.delay || 0;
-
-            mockModule.requests.push(req);
 
             setTimeout(function () {
               matched.response = matched.response || {};
@@ -184,6 +184,12 @@ function moduleTemplate(data) {
 
   mockModule.getRequests = function () {
     return mockModule.requests;
+  };
+
+  mockModule.getLastRequest = function () {
+    var length = mockModule.requests.length;
+
+    return mockModule.requests[length - 1];
   };
 
   mockModule.addMock = function (mock) {

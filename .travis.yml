@@ -8,5 +8,5 @@ install:
 before_script:
   - webdriver-manager start
 script:
-  - npm start
+  - npm start &
   - npm test

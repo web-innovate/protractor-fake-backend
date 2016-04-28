@@ -2,6 +2,7 @@
 
 [![Dependencies Status](https://david-dm.org/web-innovate/protractor-fake-backend.svg)](https://david-dm.org/web-innovate/protractor-fake-backend)
 [![Known Vulnerabilities](https://snyk.io/test/npm/protractor-fake-backend/badge.svg)](https://snyk.io/test/npm/protractor-fake-backend)
+[![Build Status](https://travis-ci.org/web-innovate/protractor-fake-backend.svg?branch=master)](https://travis-ci.org/web-innovate/protractor-fake-backend)
 
 A NodeJS module to be used alongside [Protractor](https://github.com/angular/protractor)
 

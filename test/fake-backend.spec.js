@@ -36,6 +36,7 @@ describe('mock module', function () {
 
     fakeBackend.getRequests().then(function (requests) {
       requests.forEach(function (req, index) {
+        console.log(req);
         expect(req.method).toEqual(mock[index].request.method);
         expect(req.url).toEqual(mock[index].request.path);
       });

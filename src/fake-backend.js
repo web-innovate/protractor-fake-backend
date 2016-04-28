@@ -14,24 +14,6 @@ function moduleTemplate(data) {
         return decodeURIComponent(url).replace(/https?:\/\/[^\/]+/, '');
       }
 
-      function getQueryParams(url) {
-        var decodedUrl = decodeURIComponent(url);
-        var index = decodedUrl.indexOf('?');
-
-        if (index > -1) {
-          return decodedUrl.slice(index + 1, decodedUrl.length).split('&').reduce(function (params, value) {
-            var pair = value.split('=');
-
-            if (pair.length === 2) {
-              params[pair[0]] = pair[1];
-            }
-            return params;
-          }, {});
-        } else {
-          return {};
-        }
-      }
-
       function stripQueryParams(url) {
         var decodedUrl = decodeURIComponent(url);
         var index = decodedUrl.indexOf('?');
@@ -62,12 +44,11 @@ function moduleTemplate(data) {
         return mocks.filter(function (item) {
           var sameMethod = matchMethod(request.method, item.request.method || 'get');
           var sameUrl = matchUrl(request.url, item.request.path);
-          var sameBody = item.request.body ? request.body === item.request.body : true;
+          var sameBody = item.request.data ? request.data === item.request.data : true;
           var sameHeaders = item.request.headers ? equals(request.headers, item.request.headers) : true;
-          var sameQueryString = equals(getQueryParams(request.url), item.request.queryString || {});
           var sameParams = equals(request.params || {}, item.request.params || {});
 
-          return sameMethod && sameUrl && sameBody && sameHeaders && sameQueryString && sameParams;
+          return sameMethod && sameUrl && sameBody && sameHeaders && sameParams;
         });
       }
 

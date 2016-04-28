@@ -62,14 +62,10 @@ or
   request: {
     path: '/must/start/with/a/slash',
     method: 'POST',
-    body: 'request body',
+    data: 'request body',
     headers: {
       first: 1,
       second: 'bla'
-    },
-    queryString: {
-      first: '2',
-      second: 'woo'
     },
     params: {
       first: 1,

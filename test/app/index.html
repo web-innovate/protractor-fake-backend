@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+</head>
+<body ng-app="demo">
+<script src="../../node_modules/angular/angular.js"></script>
+<script src="./app.js"></script>
+
+<button class="boo" type="button" ng-click="testCall()">Test</button>
+
+<p>Responses:</p>
+<ul class="response">
+  <li ng-repeat="response in $root.responses track by $index">
+    {{ response }}
+  </li>
+</ul>
+</body>
+</html>

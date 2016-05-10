@@ -1,6 +1,7 @@
 # protractor-fake-backend
 
-[![Dependencies Status](https://david-dm.org/web-innovate/protractor-fake-backend.svg)](https://david-dm.org/web-innovate/protractor-fake-backend)
+[![Dependency Status](https://david-dm.org/web-innovate/protractor-fake-backend.svg)](https://david-dm.org/web-innovate/protractor-fake-backend)
+[![devDependency Status](https://david-dm.org/web-innovate/protractor-fake-backend/dev-status.svg)](https://david-dm.org/web-innovate/protractor-fake-backend#info=devDependencies)
 [![Known Vulnerabilities](https://snyk.io/test/npm/protractor-fake-backend/badge.svg)](https://snyk.io/test/npm/protractor-fake-backend)
 [![Build Status](https://travis-ci.org/web-innovate/protractor-fake-backend.svg?branch=master)](https://travis-ci.org/web-innovate/protractor-fake-backend)
 

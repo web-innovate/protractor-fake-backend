@@ -1,9 +1,10 @@
 # protractor-fake-backend
 
+[![Build Status](https://travis-ci.org/web-innovate/protractor-fake-backend.svg?branch=master)](https://travis-ci.org/web-innovate/protractor-fake-backend)
 [![Dependency Status](https://david-dm.org/web-innovate/protractor-fake-backend.svg)](https://david-dm.org/web-innovate/protractor-fake-backend)
 [![devDependency Status](https://david-dm.org/web-innovate/protractor-fake-backend/dev-status.svg)](https://david-dm.org/web-innovate/protractor-fake-backend#info=devDependencies)
 [![Known Vulnerabilities](https://snyk.io/test/npm/protractor-fake-backend/badge.svg)](https://snyk.io/test/npm/protractor-fake-backend)
-[![Build Status](https://travis-ci.org/web-innovate/protractor-fake-backend.svg?branch=master)](https://travis-ci.org/web-innovate/protractor-fake-backend)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8198279383664f79be0c4eed4ce03db0)](https://www.codacy.com/app/andrei-scripcaru/protractor-fake-backend?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=web-innovate/protractor-fake-backend&amp;utm_campaign=Badge_Grade)
 
 A NodeJS module to be used alongside [Protractor](https://github.com/angular/protractor)
 

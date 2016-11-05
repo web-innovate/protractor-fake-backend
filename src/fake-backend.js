@@ -1,5 +1,7 @@
 'use strict';
 
+/* global angular */
+
 function moduleTemplate(data) {
   var mocks = data || [];
   var mockModule = angular.module('fakeBackend', []);
@@ -83,7 +85,7 @@ function moduleTemplate(data) {
           }
 
           return responseHeaders[headerName];
-        }
+        };
       }
 
       function fakeBackend(request) {

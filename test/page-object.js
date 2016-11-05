@@ -5,7 +5,7 @@ var page = function () {
 
   this.reponses = function () {
     return element.all(by.css('.response > li'));
-  }
+  };
 };
 
 module.exports = page;

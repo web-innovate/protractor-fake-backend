@@ -1,5 +1,7 @@
 'use strict';
 
+/* global angular, browser */
+
 var globby = require('globby');
 var path = require('path');
 var fakeBackend = require('./fake-backend');

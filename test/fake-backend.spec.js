@@ -45,7 +45,7 @@ describe('mock module', function () {
       response.forEach(function (res) {
         res.getText().then(function (text) {
           console.log(text);
-        })
+        });
       });
     });
   });
